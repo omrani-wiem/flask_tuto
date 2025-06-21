@@ -1,9 +1,9 @@
 import os
 from flask import Flask
-from . import db  # importe db au bon endroit
+from . import db
+from . import auth  # <-- importer auth ici
 
 def create_app(test_config=None):
-    # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -24,6 +24,7 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
-    db.init_app(app)  # <-- tu dois l’ajouter ici, pas après
+    db.init_app(app)         # initialise la base
+    app.register_blueprint(auth.bp)  # enregistre le blueprint auth
 
     return app
