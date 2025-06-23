@@ -86,7 +86,7 @@ def logout():
     return redirect(url_for('index'))
 
 #Exiger l’authentification dans d’autres vues
-def login_required(view):
+def login_required(view): #Elle sert à protéger certaines pages pour que seuls les utilisateurs connectés puissent y accéder
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
